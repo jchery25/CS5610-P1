@@ -1,7 +1,8 @@
 # ONE: The Card Game
->Created By Prateeksha Lingashettar & Jonathan Chery
->Influenced By: UNO Card Game
->CS 5610 - Project 01
+### Created By Prateeksha Lingashettar & Jonathan Chery
+### Influenced By: UNO Card Gam
+### CS 5610 - Project 01
+
 
 ## What game are you going to build?
 The game we are building is ONE, a generic UNO card game. ONE is a two to four player game where the goal of the game is to get rid of all the cards in one’s hand. To help make this game more engaging, similar to UNO, there are special cards that will gain the individual players an advantage in the game. The mechanics of the game works similar to UNO, the player must match the card they play to the board card either by playing the same number or symbol. The game begins with one randomly chosen card (which is not a special card) on the game board and the players have to match the number or symbol. The player who has two cards left, must say “One” before playing the penultimate card onto the game board. To win the game, the player must be the first person to get rid of all their cards in their hands. 
