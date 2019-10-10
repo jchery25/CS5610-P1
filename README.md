@@ -1,6 +1,6 @@
 # ONE: The Card Game
 ### Created By Prateeksha Lingashettar & Jonathan Chery
-### Influenced By: UNO Card Gam
+### [Inspired By: UNO Card Game ](https://en.wikipedia.org/wiki/Uno_(card_game))
 ### CS 5610 - Project 01
 
 
