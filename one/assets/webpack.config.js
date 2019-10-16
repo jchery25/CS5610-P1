@@ -1,51 +1,53 @@
-const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
-const config = {
-    entry: [
-        'react-hot-loader/patch',
-        './src/index.js'
-    ],
+module.exports = (env, options) => ({
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({ cache: true, parallel: true, sourceMap: false }),
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
+    entry: {
+        './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+    },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'app.js',
+        path: path.resolve(__dirname, '../priv/static/js')
     },
     module: {
         rules: [{
                 test: /\.(js|jsx)$/,
-                use: 'babel-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react'],
+                    },
+                }
+            },
+            {
+                test: /\.css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             {
                 test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            }
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            },
         ]
     },
-    resolve: {
-        extensions: [
-            '.js',
-            '.jsx'
-        ],
-        alias: {
-            'react-dom': '@hot-loader/react-dom'
-        }
-    },
-    devServer: {
-        contentBase: './dist'
-    },
     plugins: [
+        new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+        new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
             Popper: ['popper.js', 'default'],
         }),
-    ],
-};
-
-module.exports = config;
+    ]
+});

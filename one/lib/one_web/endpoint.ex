@@ -36,7 +36,7 @@ defmodule OneWeb.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_one_key",
-    signing_salt: "S8nHrTT8"
+    signing_salt: "oTkOQPFG"
 
   plug OneWeb.Router
 

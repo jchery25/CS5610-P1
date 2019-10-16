@@ -8,7 +8,7 @@ use Mix.Config
 # Configures the endpoint
 config :one, OneWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "EoeAGLiB3PUw/VBUE/JC9ypdeplxduOuYC5rFoo1vlf7/lAmxTYjkWd4dpwP0nRw",
+  secret_key_base: "3VbXBoa3k9eRgcylGLPcyjgHFq36GnLLrunv8L3xSTYAle+j6HveWnCJJk2tjWIU",
   render_errors: [view: OneWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: One.PubSub,
            adapter: Phoenix.PubSub.PG2]
