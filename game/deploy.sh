@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export MIX_ENV=prod
-export PORT=4999
 export NODEBIN=`pwd`/assets/node_modules/.bin
 export PATH="$PATH:$NODEBIN"
+
+source ./prod-env.sh
 
 echo "Building..."
 
