@@ -1,0 +1,16 @@
+[Unit]
+Description=One Card Game
+
+[Service]
+Type=simple
+User=game
+Group=game
+Restart=on-failure
+Environment=MIX_ENV=prod "PORT=4999"
+Environment=LANG=en_US.UTF-8
+
+WorkingDirectory=/home/game/CS5610-P1/game
+ExecStart=/bin/bash /home/game/CS5610-P1/game/start.sh
+
+[Install]
+WantedBy=multi-user.target
