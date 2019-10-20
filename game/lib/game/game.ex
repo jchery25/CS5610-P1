@@ -32,24 +32,6 @@ defmodule One.Game do
 
 
     IO.inspect(deck, label: "Testing")
-      # deck = [
-    #   %{suit: "A", symbol: "\u2660", value: 1}
-    #   %{suit: "A", symbol: "\u2665", value: 2}
-    #   %{suit: "A", symbol: "\u2666", value: 3}
-    #   %{suit: "A", symbol: "\u2663", value: 4}
-    #   %{suit: "2", symbol: "\u2660", value: 5},
-    #   %{suit: "2", symbol: "\u2665", value: 6},
-    #   %{suit: "2", symbol: "\u2666", value: 7},
-    #   %{suit: "2", symbol: "\u2663", value: 8},
-    #   %{suit: "3", symbol: "\u2660", value: 9},
-    #   %{suit: "3", symbol: "\u2665", value: 10},
-    #   %{suit: "3", symbol: "\u2666", value: 11},
-    #   %{suit: "3", symbol: "\u2663", value: 12},
-    #   %{suit: "4", symbol: "\u2660", value: 13},
-    #   %{suit: "4", symbol: "\u2665", value: 14},
-    #   %{suit: "4", symbol: "\u2666", value: 15},
-    #   %{suit: "4", symbol: "\u2663", value: 16},
-    # ]
     # deck = Enum.shuffle(deck)
   end
 
