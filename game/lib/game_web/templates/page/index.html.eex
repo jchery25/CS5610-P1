@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" id="root">
   <div class="col-12">
     <h1>Welcome to <i>One: The Card Game</i></h1>
     <h1> Description of Game</h1>
