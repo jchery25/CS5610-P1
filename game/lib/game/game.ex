@@ -27,12 +27,9 @@ defmodule One.Game do
 
     deck = for suit <- suit,
         symbol <- symbol do
-          %{suit: "#{suit}", symbol: "#{symbol}", value: "#{value}"}
+          %{suit: "#{suit}", symbol: "#{symbol}"}
     end
-
-
-    IO.inspect(deck, label: "Testing")
-    # deck = Enum.shuffle(deck)
+    deck = Enum.shuffle(deck)
   end
 
 end
