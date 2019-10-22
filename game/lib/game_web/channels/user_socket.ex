@@ -3,7 +3,7 @@ defmodule GameWeb.UserSocket do
 
   ## Channels
   # channel "room:*", GameWeb.RoomChannel
-  channel "games:*", GameWeb.GamesChannel
+  channel "games:lobby", GameWeb.GamesChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
