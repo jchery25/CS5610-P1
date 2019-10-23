@@ -19,9 +19,13 @@ import "phoenix_html"
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
 
-
+import React from 'react';
+import ReactDOM from 'react-dom';
 import index from "./index";
 import socket from "./socket";
+import Lobby from "./lobby";
+import lobby from "./lobby";
+
 
 /*
 $(() => {
@@ -31,9 +35,17 @@ $(() => {
 */
 
 $(() => {
-  let root = document.getElementById('root');
-  if (root) {
+  let start = document.getElementById('start');
+  let watch = document.getElementById("lobby");
+  let join = document.getElementById('join');
+  if (start) {
     let channel = socket.channel("games:" + window.gameName, {});
-    index(root, channel);
+    index(start, channel);
   }
+  /*
+  else if(watch){
+    let channel = socket.channel("games:" + window.gameName, {});
+    ReactDOM.render(<Lobby channel={channel} />, watch);
+  }
+  */
 });

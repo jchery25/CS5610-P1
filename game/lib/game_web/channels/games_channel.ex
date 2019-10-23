@@ -1,9 +1,15 @@
 defmodule GameWeb.GamesChannel do
   use GameWeb, :channel
 
-  def join("games:lobby", payload, socket) do
+  alias One.Game
+
+  def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      {:ok, socket}
+      game = Game.new()
+      socket = socket
+            |> assign(:game, game)
+            |> assign(:name, name)
+            {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end

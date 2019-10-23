@@ -1,1 +1,4 @@
+<script>
+ window.gameName = "<%= @name %>";
+</script>
 <h1>Tablename</h1>

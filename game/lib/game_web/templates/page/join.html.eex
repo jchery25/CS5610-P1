@@ -1,1 +1,6 @@
+<script>
+ window.gameName = "<%= @name %>";
+</script>
 <h1>Join</h1>
+<div id="join">
+</div>

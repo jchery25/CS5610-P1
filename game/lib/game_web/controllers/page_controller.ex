@@ -5,12 +5,12 @@ defmodule GameWeb.PageController do
     render(conn, "index.html")
   end
 
-  def start(conn, _params) do
-    render(conn, "start.html")
+  def start(conn, %{"name" => name}) do
+    render(conn, "start.html", name: name)
   end
 
-  def lobby(conn, _params) do
-    render(conn, "lobby.html")
+  def lobby(conn, %{"name" => name}) do
+    render(conn, "lobby.html", name: name)
   end
 
   def join(conn, _params) do

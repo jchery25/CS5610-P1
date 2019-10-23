@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Form, Row, Col, Label, Button } from 'reactstrap';
+import { Form, Row, Col, Label, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import _ from 'lodash';
 import $ from 'jquery';
-
-import Game from "./game";
 
 export default function index(root, channel) {
   ReactDOM.render(<Index channel={channel}/>, root);
@@ -15,190 +13,121 @@ class Index extends React.Component{
         super(props);
         this.channel = props.channel;
         this.state = {
-            playername: "",
-            nextComponent: "",
-            gameName: "",
-            listOfGames: ["Abc","Bcd","GHUG","YGy"]
+            deck:[],
+            players: [],
+            maxPlayers: 0,
         }
+        this.channel.join()
+            .receive("ok", this.got_view.bind(this))
+            .receive("error", resp => { console.log("Unable to join", resp); });
     }
 
+    /*
     start(ev){
         ev.preventDefault();
-        console.log("enter start");
-        let name = document.getElementById("playername").value;
-        console.log(name);
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
+        if(this.gamename.value === undefined || this.gamename.value === ""){
+            alert("error");
         }
-        else{
-            let state1 = _.extend(this.state, {playername: name, nextComponent: ev.target.value});
+        if(this.noOfPlayers.value === undefined || this.noOfPlayers.value === ""){
+            alert("error");
+        }
+        let playerlist = this.state.playerList;
+        if(playerlist.length === 0){
+            playerlist.push(this.gamename.value);
+            let state1 = _.extend(this.state, {playerList : playerlist, playerNo: this.noOfPlayers.value});
             this.setState(state1);
         }
+        else{
+            let state1 = _.extend(this.state, {playerList : playerlist});
+            this.setState(state1);
+        }
+        console.log(this.state);
     }
 
+    */
     got_view(view){
         console.log("success");
         console.log(view);
-    }
-
-    startGame(ev){
-        ev.preventDefault();
-        let name = document.getElementById("gameName").value;
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
-        }
-        else{
-            let state1 = _.extend(this.state, {gameName: name});
-            this.setState(state1);
-            window.gameName = name;
-            this.channel.join()
-            .receive("ok", this.got_view.bind(this))
-            .receive("error", resp => { console.log("Unable to join", resp); });
-        }
-    }
-    
-    join(ev){
-        ev.preventDefault();
-        let name = document.getElementById("playername").value;
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
-        }
-        else{
-            let state1 = _.extend(this.state, {playername: name, nextComponent: ev.target.value});
-            this.setState(state1);
-
-        }
-    }
-
-    watch(ev){
-        ev.preventDefault();
-        let name = document.getElementById("playername").value;
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
-        }
-        else{
-            let state1 = _.extend(this.state, {playername: name, nextComponent: ev.target.value});
-            this.setState(state1);
-        }
-    }
-
-    joinGame(ev){
-        ev.preventDefault();
-        let selectedGame = document.getElementById("games").value;
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
-        }
-        else{
-            let state1 = _.extend(this.state, {gameName: selectedGame});
-            this.setState(state1);
-        }
-    }
-
-    watchGame(ev){
-        ev.preventDefault();
-        let selectedGame = document.getElementById("games").value;
-        if(name === undefined || name === ""){
-            alert("Please enter a valid name");
-        }
-        else{
-            let state1 = _.extend(this.state, {gameName: selectedGame});
-            this.setState(state1);
-        }
+        this.setState(view.game);
     }
 
     render(){
-        if(this.state.nextComponent === ""){
+        if(this.state.deck.length === 0){
+            return(
+                <button></button>
+            )
+
+        }
+        else{
+        return(
+        <Deck deck={this.state.deck} />
+        );
+        }
+        /*
+        if(this.state.playerList.length === 0){
             return(
                 <Form>
                     <Row className="form-group">
-                        <Label for="playername" md={4}>Player Name:
-                        <input type="text" md={8} id="playername" name="playername" />
+                        <Label for="playername" md={4}>Player Name: 
+                        <input type="text" md={8} id="playername" name="playername" ref={(c) => this.gamename = c} />
                         </Label>
                     </Row>
+                    <Label for = "noofplayers" md={4}>Game Name: 
+                            <select id="noofplayers" md={8} ref={(d) => this.noOfPlayers = d}>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                    </Label>
                     <Row className="form-group">
                         <Col>
                             <Button color="success" value="Start" onClick={this.start.bind(this)}>Start Game</Button>
                         </Col>
+                    </Row>
+                </Form>
+                );
+            }
+        else{
+            return(
+                <Form>
+                    <Row className="form-group">
+                        <Label for="playername" md={4}>Player Name: 
+                        <input type="text" md={8} id="playername" name="playername" ref={(c) => this.gamename = c} />
+                        </Label>
+                    </Row>
+                    <Row className="form-group">
                         <Col>
-                            <Button color="success" value="Join" onClick={this.join.bind(this)}>Join Game</Button>
-                        </Col>
-                        <Col>
-                        <Button className="btn btn-success" value="Watch" onClick={this.watch.bind(this)}>Watch Game
-                        </Button>
+                            <Button color="success" value="Start" onClick={this.start.bind(this)}>Join Game</Button>
                         </Col>
                     </Row>
                 </Form>
                 );
         }
-        else if(this.state.nextComponent === "Start" && this.state.gameName === ""){
-            return(
-                <div>
-                <h1>Welcome {this.state.playerName}</h1>
-                <Form>
-                    <Row className="form-group">
-                        <Label for="gameName" md={12}>Game Name:
-                        <input type="text" id="gameName" name="gameName" />
-                        </Label>
-                    </Row>
-                    <Row className="form-group">
-                        <Col>
-                            <Button color="primary" onClick={this.startGame.bind(this)}>Start Game</Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-            );
-        }
-        else if(this.state.nextComponent === "Join" && this.state.gameName === ""){
-            let gameNames = this.state.listOfGames;
-            let names = [];
-            for(let i=0; i< gameNames.length; i++){
-                names.push(<option key={i} value={gameNames[i]}>{gameNames[i]}</option>);
-            }
-            return( 
-                <div>
-                <h1>Welcome {this.state.playerName}</h1>
-                <Form>
-                    <Row className="form-group">
-                        <select id="games">
-                            {names}
-                        </select>
-                    </Row>
-                    <Row className="form-group">
-                        <Col>
-                            <Button color="primary" onClick={this.joinGame.bind(this)}>Join Game</Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-            );
-        }
-        else if(this.state.nextComponent === "Watch" && this.state.gameName === ""){
-            let gameNames = this.state.listOfGames;
-            let names = [];
-            for(let i=0; i< gameNames.length; i++){
-                names.push(<option key={i} value={gameNames[i]}>{gameNames[i]}</option>);
-            }
-            return( 
-                <div>
-                <h1>Welcome {this.state.playerName}</h1>
-                <Form>
-                    <Row className="form-group">
-                        <select id="games">
-                            {names}
-                        </select>
-                    </Row>
-                    <Row className="form-group">
-                        <Col>
-                            <Button color="primary" onClick={this.watchGame.bind(this)}>Watch Game</Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-            );
-        }
-        else{
-            return(<Game root={this} />);
-        }
+        */
     }
 }
+
+function Deck(params){
+    let {deck} = params
+    let convertDeck = Object.values(deck);
+
+    let buttons = convertDeck.map((e)=> {
+        <button>e.suit</button>
+    });
+    // console.log(convertDeck[0].suit)
+
+    return(
+        <button></button>
+        );
+    
+}
+
+function Word(params) {
+    let {skeleton} = params;
+    return (
+      <div>
+        <p><b>The Word</b></p>
+        <p>{skeleton.join(" ")}</p>
+      </div>
+    );
+  }
