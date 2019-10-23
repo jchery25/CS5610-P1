@@ -23,6 +23,7 @@ defmodule GameWeb.Router do
     get "/watch", PageController, :watch
     get "tablename/:tablename", PageController, :tablename
 
+
   end
 
   # Other scopes may use custom stacks.
