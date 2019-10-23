@@ -2,13 +2,17 @@ defmodule One.Game do
   def new do
     deck = initial_deck()
     %{
-      deck: deck
+      deck: deck,
+      players: [],
+      maxPlayers: 2 
     }
   end
 
   def client_view(game) do
     %{
-      deck: game.deck
+      deck: game.deck,
+      players: game.players,
+      maxPlayers: game.maxPlayers
     }
   end
 

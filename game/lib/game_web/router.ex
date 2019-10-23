@@ -17,11 +17,12 @@ defmodule GameWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    # get "/lobby", PageController, :lobby
-    get "game/start", PageController, :start
-    # get "/join", PageController, :join
-    # get "/watch", PageController, :watch
-    # get "/tablename/:tablename", PageController, :tablename
+    get "lobby/:name", PageController, :lobby
+    get "start/:name", PageController, :start
+    get "/join", PageController, :join
+    get "/watch", PageController, :watch
+    get "tablename/:tablename", PageController, :tablename
+
 
   end
 
