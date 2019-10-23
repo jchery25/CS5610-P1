@@ -39,6 +39,7 @@ class Index extends React.Component{
     got_view(view){
         console.log("success");
         console.log(view);
+        
     }
 
     startGame(ev){
