@@ -18,7 +18,7 @@ defmodule GameWeb.Router do
 
     get "/", PageController, :index
     # get "/lobby", PageController, :lobby
-    # get "/start", PageController, :start
+    get "game/start", PageController, :start
     # get "/join", PageController, :join
     # get "/watch", PageController, :watch
     # get "/tablename/:tablename", PageController, :tablename
