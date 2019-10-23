@@ -110,24 +110,29 @@ class Index extends React.Component{
 function Deck(params){
     let {deck} = params
     let convertDeck = Object.values(deck);
+    let cards = [];
 
-    let buttons = convertDeck.map((e)=> {
+    for(let i = 0; i < convertDeck.length; i++){
+        cards.push(<div className="card bg-info text-white" key={i}>
+          <div className="card-header text-align">
+            {convertDeck[i].suit}
+          </div>
+          <div className="card-body text-align">
+            <button className="btn bg-transparent" id={i} value={convertDeck[i].symbol[i]}>{convertDeck[i].symbol[i]}</button>
+          </div>
+          <div className="card-footer text-align">
+            {convertDeck[i].suit}
+          </div>
+          </div>);
+      }
+
+      return (cards);
+
+
+    /*let buttons = convertDeck.map((e)=> {
         <button>e.suit</button>
     });
     // console.log(convertDeck[0].suit)
-
-    return(
-        <button></button>
-        );
+    */
     
 }
-
-function Word(params) {
-    let {skeleton} = params;
-    return (
-      <div>
-        <p><b>The Word</b></p>
-        <p>{skeleton.join(" ")}</p>
-      </div>
-    );
-  }
