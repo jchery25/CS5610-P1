@@ -36,15 +36,16 @@ defmodule One.Game do
     end
   end
 
-  def add_new_player(game, player_name) do
-    fc = game.players
-        |> MapSet.new()
-        |> MapSet.put(player_name)
-        |> MapSet.to_list
+  # No longer need this.
+  # def add_new_player(game, player_name) do
+  #   fc = game.players
+  #       |> MapSet.new()
+  #       |> MapSet.put(player_name)
+  #       |> MapSet.to_list
 
-    game = Map.put(game, :players, fc)
-    game
-  end
+  #   game = Map.put(game, :players, fc)
+  #   game
+  # end
 
   def start_game(game) do
     players = for player <- game.players do
