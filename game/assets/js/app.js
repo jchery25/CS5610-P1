@@ -23,8 +23,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import index from "./index";
 import socket from "./socket";
-import Lobby from "./lobby";
-import lobby from "./lobby";
+import Join from "./join";
 
 
 /*
@@ -36,17 +35,14 @@ $(() => {
 
 $(() => {
   let start = document.getElementById('start');
-  let watch = document.getElementById("lobby");
   let join = document.getElementById('join');
   if (start) {
     let channel = socket.channel("games:" + window.gameName, {});
     index(start, channel);
   }
-  /*
-  else if(watch){
+  else if(join){
     let channel = socket.channel("games:" + window.gameName, {});
-    ReactDOM.render(<Lobby channel={channel} />, watch);
+    ReactDOM.render(<Join channel={channel} />, join);
   }
-  */
 
 });

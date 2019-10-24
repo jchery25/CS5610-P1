@@ -12,7 +12,6 @@ class Game extends React.Component {
       score: 0,
       messageList: [],
       boardCard: "3",
-      selectedValue: ""
     };
 
     //this.channel
@@ -51,8 +50,8 @@ class Game extends React.Component {
   cardClick(ev){
     let value = ev.target.value;
     console.log(value);
-    let state1 = _.extend(this.state, {selectedValue: value});
-    this.setState(state1);
+    //let state1 = _.extend(this.state, {selectedValue: value});
+    //this.setState(state1);
   }
 
   /*
@@ -102,7 +101,7 @@ class Game extends React.Component {
           <div className="col-5 col-md-4">
 
           </div>
-          <div className="col col-md-1">
+          <div className="col col-md-2">
             <div className="card bg-info text-white">
               <div className="card-header text-align">
                 {"\u2660"}
