@@ -25,6 +25,7 @@ class Game extends React.Component {
     //this.enableAll = this.enableAll.bind(this);
     this.click = this.click.bind(this);
     this.select = this.select.bind(this);
+    this.getBoardCard = this.boardCard.bind(this);
     //this.restart = this.restart.bind(this);
     
 
@@ -61,22 +62,26 @@ class Game extends React.Component {
 
   */
   createCards(){
-    let values = this.state.cards;
+    let convertDeck = Object.values(this.state.cards);
     let cards = [];
-    for(let i = 0; i < values.length; i++){
-      cards.push(<div className="card bg-info text-white" key={i}>
-        <div className="card-header text-align">
-          {"\u2660"}
-        </div>
-        <div className="card-body text-align">
-          <button className="btn bg-transparent" id={i} onClick={this.cardClick.bind(this)} value={values[i]}>{values[i]}</button>
-        </div>
-        <div className="card-footer text-align">
-          {"\u2660"}
-        </div>
+
+    for(let i = 0; i < convertDeck.length; i++){
+        cards.push(
+        <div className="row">
+          <div className="card col-md-1 bg-info text-white" key={i}>
+            <div className="card-header text-align">
+              {convertDeck[i].suit}
+            </div>
+            <div className="card-body text-align">
+              <button className="btn bg-transparent" id={i} value={convertDeck[i].symbol[i]}>{convertDeck[i].symbol[i]}</button>
+            </div>
+            <div className="card-footer text-align">
+              {convertDeck[i].suit}
+            </div>
+          </div>
         </div>);
-    }
-    return cards;
+      }
+      return (cards);
   }
 
   click(){
@@ -87,12 +92,29 @@ class Game extends React.Component {
     console.log(this.state.selectedValue);
   }
 
+  getBoardCard(){
+    let card = this.state.boardCard;
+    return(
+      <div className="card bg-info text-white">
+        <div className="card-header text-align">
+          {"\u2660"}
+        </div>
+        <div className="card-body text-align">
+          {boardCard}
+        </div>
+        <div className="card-body text-align">
+          {"\u2660"}
+        </div>
+      </div>
+    );
+  }
+
   /*
   This is the render function to display the different components required for this game.
   */
   render() {
     let cards = this.createCards();
-    let boardCard = this.state.boardCard;
+    let boardCard = getBoardCard();
     //let score = "Your score so far: " + this.state.score;
     return(
       <div className="container">
@@ -102,17 +124,7 @@ class Game extends React.Component {
 
           </div>
           <div className="col col-md-2">
-            <div className="card bg-info text-white">
-              <div className="card-header text-align">
-                {"\u2660"}
-              </div>
-              <div className="card-body text-align">
-                {boardCard}
-              </div>
-              <div className="card-body text-align">
-                {"\u2660"}
-              </div>
-            </div>
+            {boardCard}
           </div>
           <div className="col-offset-4 col-2 col-md-2">
             <div className="card bg-info text-white">
