@@ -2,7 +2,6 @@ defmodule One.Game do
   def new do
     deck = initial_deck()
     %{
-      deck: deck,
       players: [],
       maxPlayers: 2 
     }
@@ -10,10 +9,31 @@ defmodule One.Game do
 
   def client_view(game) do
     %{
-      deck: game.deck,
       players: game.players,
       maxPlayers: game.maxPlayers
     }
+  end
+
+  def add_player(game, player_name, max_players) do
+
+    game = Map.put(game, :maxPlayers, max_players)
+
+    fc = game.players
+        |> MapSet.new()
+        |> MapSet.put(player_name)
+        |> MapSet.to_list
+
+    game = Map.put(game, :players, fc)
+  end
+
+  def add_new_player(game, player_name) do
+    fc = game.players
+        |> MapSet.new()
+        |> MapSet.put(player_name)
+        |> MapSet.to_list
+
+    game = Map.put(game, :players, fc)
+    
   end
 
   def initial_deck do

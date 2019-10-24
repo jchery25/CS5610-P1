@@ -9,7 +9,9 @@ defmodule Game.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      GameWeb.Endpoint
+      GameWeb.Endpoint,
+      One.GameSup,
+      One.BackupAgent,
       # Starts a worker by calling: Game.Worker.start_link(arg)
       # {Game.Worker, arg},
     ]

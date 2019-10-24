@@ -2,10 +2,14 @@ defmodule GameWeb.GamesChannel do
   use GameWeb, :channel
 
   alias One.Game
+  alias One.BackupAgent
+  alias One.GameServer
 
   def join("games:" <> name, payload, socket) do
     if authorized?(payload) do
-      game = Game.new()
+      GameServer.start(name)
+      game = GameServer.peek(name)
+      BackupAgent.put(name, game)
       socket = socket
             |> assign(:game, game)
             |> assign(:name, name)
@@ -18,8 +22,20 @@ defmodule GameWeb.GamesChannel do
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
-  def handle_in("ping", payload, socket) do
-    {:reply, {:ok, payload}, socket}
+  def handle_in("add_player", %{"player_name" => player_name, "max_players" => max_players}, socket) do
+    name = socket.assigns[:name]
+    game = GameServer.add_player(name, player_name, max_players)
+    socket = assign(socket, :game, game)
+    BackupAgent.put(name, game)
+    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
+  end
+
+  def handle_in("add_new_player", %{"player_name" => player_name}, socket) do
+    name = socket.assigns[:name]
+    game = GameServer.add_new_player(name, player_name)
+    BackupAgent.put(name, game)
+    broadcast!(socket, "update", %{ "game" => Game.client_view(game) })
+    {:reply, {:ok, %{ "game" => Game.client_view(game)}}, socket}
   end
 
   # It is also common to receive messages from the client and

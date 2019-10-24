@@ -30,7 +30,7 @@ function Rules(){
     return(
         <div className="row">
             <div className="col">
-                <p>You will receive</p>
+                <p>You will receive a set of 7 cards. And a card is displayed on the board.</p>
             </div>
         </div>
     );

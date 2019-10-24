@@ -13,8 +13,8 @@ defmodule GameWeb.PageController do
     render(conn, "lobby.html", name: name)
   end
 
-  def join(conn, _params) do
-    render(conn, "join.html")
+  def join(conn, %{"name" => name}) do
+    render(conn, "join.html", name: name)
   end
 
   def watch(conn, _params) do
