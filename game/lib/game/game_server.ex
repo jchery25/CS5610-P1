@@ -1,10 +1,12 @@
 defmodule One.GameServer do
     use GenServer
-  
+
+    @timeout :timer.hours(2)
+
     def reg(name) do
       {:via, Registry, {One.GameReg, name}}
     end
-  
+
     def start(name) do
       spec = %{
         id: __MODULE__,
@@ -14,12 +16,12 @@ defmodule One.GameServer do
       }
       One.GameSup.start_child(spec)
     end
-  
+
     def start_link(name) do
       game = One.BackupAgent.get(name) || One.Game.new()
       GenServer.start_link(__MODULE__, game, name: reg(name))
     end
-  
+
     def add_player(name, player_name, max_players) do
       GenServer.call(reg(name), {:add_player, name, player_name, max_players})
     end
@@ -27,28 +29,36 @@ defmodule One.GameServer do
     def add_new_player(name, player_name) do
       GenServer.call(reg(name), {:add_new_player, name, player_name})
     end
-  
-    def peek(name) do
+
+    def  (name) do
       GenServer.call(reg(name), {:peek, name})
     end
-  
+
     def init(game) do
-      {:ok, game}
+      {:ok, game, @timeout}
     end
-  
+
     def handle_call({:add_player, name, player_name, max_players}, _from, game) do
       game = One.Game.add_player(game, player_name, max_players)
       One.BackupAgent.put(name, game)
-      {:reply, game, game}
+      {:reply, game, game, @timeout}
     end
 
     def handle_call({:add_new_player, name, player_name}, _from, game) do
       game = One.Game.add_new_player(game, player_name)
       One.BackupAgent.put(name, game)
-      {:reply, game, game}
+      {:reply, game, game, @timeout}
     end
-  
+
     def handle_call({:peek, _name}, _from, game) do
-      {:reply, game, game}
+      {:reply, game, game, @timeout}
+    end
+
+    def terminate({:shutdown,:timeout}, _game) do
+      :ok
+    end
+
+    def handle_info(:timeout, game) do
+      {:stop, {:shutdown, :timeout}, game}
     end
   end
