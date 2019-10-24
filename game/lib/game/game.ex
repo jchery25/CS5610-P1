@@ -1,12 +1,13 @@
 defmodule One.Game do
   def new(starter_player,numOfPlayers) when is_integer(numOfPlayers) do
     deck = initial_deck()
+    card = choose_starter_card(deck)
 
     %{
       deck: deck,
       players: [starter_player],
       numOfPlayers: numOfPlayers,
-      starter_card: choose_starter_card(deck),
+      starter_card: card,
       winner: nil
     }
   end
@@ -78,7 +79,7 @@ defmodule One.Game do
     suitCard = get_in(card, [Access.at(0), :suit])
 
     if (suitCard == "J" || suitCard == "Q" || suitCard == "K" || suitCard == "W") do
-      choose_starter_card(game.deck)
+      choose_starter_card(deck)
     end
 
     card
