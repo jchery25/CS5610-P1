@@ -55,17 +55,19 @@ class Index extends React.Component{
             return(
                 <Form>
                     <Row className="form-group">
-                        <Label for="playername" md={4}>Player Name: 
+                        <Label for="playername" md={4}>Player Name:<br/> 
                         <input type="text" md={8} id="playername" name="playername" ref={(c) => this.gamename = c} />
                         </Label>
                     </Row>
-                    <Label for = "noofplayers" md={4}>Game Name: 
-                            <select id="noofplayers" md={8} ref={(d) => this.noOfPlayers = d}>
+                    <Row className="form-group">
+                        <Label for = "noofplayers" md={4}>No of Players (Including you): <br />
+                            <select className="selectpicker" id="noofplayers" md={8} ref={(d) => this.noOfPlayers = d}>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                             </select>
-                    </Label>
+                        </Label>
+                    </Row>
                     <Row className="form-group">
                         <Col>
                             <Button color="success" value="Start" onClick={this.start.bind(this)}>Start Game</Button>
@@ -79,8 +81,13 @@ class Index extends React.Component{
         }
         else{
             return(
-                <div>
-                    Waiting for other players to join
+                <div className="row justify-content-center">
+                    <p className="col justify-content-center">Waiting for other players to join</p>
+                    <div className="col-12">
+                        <div className="spinner-grow text-success" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                    </div>
                 </div>
             );
         }

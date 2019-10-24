@@ -1,11 +1,22 @@
 <div class="row">
   <div class="column">
-    <h1 id="index-page">Join a Game</h1>
-    <p>Enter a name you want to join:</p>
-    <input id="gameName" type="text" name="game_name">
-    <button onClick="start()">Start Game</button>
-    <button onClick="join()">Join Game</button>
-    <button onClick="watch()">Watch Game</button>
+    <div id="header">
+      <h1 id="index-page">Start/Join a Game</h1>
+    </div>
+    <div id="name">
+      <p>Enter a name you want to join:</p>
+      <input id="gameName" type="text" name="game_name">
+    </div>
+    <br>
+    <div id="startBtn">
+      <button class="button1" onClick="start()">Start Game</button>
+    </div>
+    <div id="joinBtn">
+      <button class="button1" onClick="join()">Join Game</button>
+    </div>
+    <div id="watchBtn">
+      <button class="button1" onClick="watch()">Watch Game</button>
+    </div>
     <label id="error"></label>
     <script>
       function start(ev){
